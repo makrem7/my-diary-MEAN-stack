@@ -1,0 +1,20 @@
+<h2>Welcome to the diary</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Entry</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let diaryEntry of diaryEntries; let i = index">
+            <td>{{diaryEntry.date}}</td>
+            <td>{{diaryEntry.entry}}</td>
+            <td>
+                <button class="btn btn-light">Edit</button>
+                <button (click)="onDelete(i)" class="btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
