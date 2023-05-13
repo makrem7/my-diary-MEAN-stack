@@ -13,6 +13,19 @@ export class DiaryDataService{
 
     onDelete(index: number): void {
         this.diaryEntries.splice(index,1);
-        this.diarySubject.next(this.diaryEntries)
+        this.diarySubject.next(this.diaryEntries);
+    }
+    onAdd(newEntry: DiaryEntry){
+        this.diaryEntries.push(newEntry);
+        this.diarySubject.next(this.diaryEntries);
+    }
+    onUpdate(paramId: number, newEntry: DiaryEntry) {
+        this.diaryEntries[paramId]=newEntry;
+        this.diarySubject.next(this.diaryEntries);
       }
+    getDiaryEntry(index :number):DiaryEntry{
+
+        return {...this.diaryEntries[index]}
+    }
+
 }
