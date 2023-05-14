@@ -1,7 +1,5 @@
 const http= require('http');
-
-const server = http.createServer((req,res) =>{
-    res.end('hello world');
-})
+const express = require('./rest.js');
+const server = http.createServer(express)
 
 server.listen(3000);

@@ -7,8 +7,8 @@ export class DiaryDataService{
     diarySubject= new Subject<DiaryEntry[]>();
 
     diaryEntries: DiaryEntry[]=[
-        new DiaryEntry("Jan 1st","Entry 1"),
-        new DiaryEntry("Jan 2nd", "hello world")
+        new DiaryEntry(1,"Jan 1st","Entry 1"),
+        new DiaryEntry(2,"Jan 2nd", "hello world")
     ]
 
     onDelete(index: number): void {
