@@ -15,6 +15,26 @@ app.use((req,res,next)=>{
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
 })
+
+app.delete('/remove-entry/:id',(req,res)=>{
+    const index = diaryEntries.findIndex(el => {
+        return el.id == req.params.id;
+    })
+    diaryEntries.splice(index,1);
+    res.json({
+        message:'Post Deleted'
+    })
+})
+app.put('/update-entry/:id',(req,res)=>{
+    const index = diaryEntries.findIndex(el => {
+        return el.id == req.params.id;
+    })
+    diaryEntries[index]={id: req.body.id, date: req.body.date, entry: req.body.entry};
+    res.json({
+        message:'entry with id: ' + diaryEntries[index] + ' updated!'
+    })
+})
+
 app.post('/add-entry',(req,res)=>{
     diaryEntries.push({id: req.body.id, date: req.body.date, entry: req.body.entry});
     res.status(200).json({

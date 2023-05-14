@@ -23,9 +23,16 @@ export class DiaryDataService{
     }
 
 
-    onDelete(index: number): void {
-        this.diaryEntries.splice(index,1);
-        this.diarySubject.next(this.diaryEntries);
+    onUpdate(id: number, newEntry: DiaryEntry) {
+        this.http.put<{message:string}>("http://localhost:3000/update-entry/"+id,newEntry).subscribe(jsonData=>{
+            this.getDiaryEntries();
+        })
+      }
+
+    onDelete(id: number): void {
+        this.http.delete<{message:string}>("http://localhost:3000/remove-entry/"+id).subscribe(jsonData=>{
+            this.getDiaryEntries();
+        })
     }
     onAdd(newEntry: DiaryEntry){
         this.http.get<{maxId:number}>("http://localhost:3000/max-id").subscribe((jsonData=>{
@@ -35,13 +42,12 @@ export class DiaryDataService{
             })
         }))
     }
-    onUpdate(paramId: number, newEntry: DiaryEntry) {
-        this.diaryEntries[paramId]=newEntry;
-        this.diarySubject.next(this.diaryEntries);
-      }
-    getDiaryEntry(index :number):DiaryEntry{
+    getDiaryEntry(id :number):DiaryEntry{
+        const index = this.diaryEntries.findIndex(el => {
+            return el.id == id;
+        })
 
-        return {...this.diaryEntries[index]}
+        return this.diaryEntries[index]
     }
 
 }
